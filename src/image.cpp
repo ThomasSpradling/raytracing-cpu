@@ -11,7 +11,7 @@
 Image::Image(int width, int height)
     : m_width(width)
     , m_height(height)
-    , m_data(width * height * 3)
+    , m_data(width * height)
 {}
 
 Image::~Image() {
@@ -26,8 +26,8 @@ void Image::WriteToFile(const std::string &path) {
     }
 }
 
-void Image::SetPixel(int x, int y, const Color &color) {
-    m_data[m_width * y + x] = color;
+void Image::SetPixel(int x, int y, const glm::vec3 &color) {
+    m_data[m_width * y + x] = Color(color.r, color.g, color.b);
 }
 
 Image Image::FromFile(const std::string &path) {
@@ -45,10 +45,10 @@ Image Image::FromFile(const std::string &path) {
     Image image(width, height);
     for (int j = 0; j < height; ++j) {
         for (int i = 0; i < width; ++i) {
-            Color color;
-            color.r = data[3 * (width * j + i) + 0];
-            color.g = data[3 * (width * j + i) + 1];
-            color.b = data[3 * (width * j + i) + 2];
+            glm::vec3 color;
+            color.r = data[3 * (width * j + i) + 0] / 255.0f;
+            color.g = data[3 * (width * j + i) + 1] / 255.0f;
+            color.b = data[3 * (width * j + i) + 2] / 255.0f;
 
             image.SetPixel(i, j, color);
         }
