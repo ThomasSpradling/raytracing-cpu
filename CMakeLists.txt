@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 # dev
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# output
+
+add_compile_definitions(PNG_OUTPUT_DIRECTORY="${CMAKE_SOURCE_DIR}/output/")
+
 # dependencies
 
 include_directories(third_party)
